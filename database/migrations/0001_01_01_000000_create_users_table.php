@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->decimal('height', 5, 2); // height in cm
+            $table->decimal('weight', 5, 2); // weight in kg
+            $table->string('goal'); // e.g., weight_loss, weight_gain, maintenance
+            $table->string('subgoal'); // subcategories for weight_loss or weight_gain
             $table->rememberToken();
             $table->timestamps();
         });
