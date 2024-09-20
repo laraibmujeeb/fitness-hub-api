@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->float('height')->nullable(); // Default value for height
+            $table->float('weight')->nullable(); // Default value for weight
+            $table->string('goal')->nullable(); // Default value for goal
+            $table->string('subgoal')->nullable(); // Default value for subgoal
             $table->rememberToken();
             $table->timestamps();
         });
