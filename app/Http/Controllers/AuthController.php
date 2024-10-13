@@ -13,15 +13,29 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'password' => 'required',
-            'height' => 'nullable|numeric',
-            'weight' => 'nullable|numeric',
-            'goal' => 'nullable|string',
-            'subgoal' => 'nullable|string',
-
+            'name' => 'required|string|max:255|min:3',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8|max:20',
+            'height' => 'nullable|numeric|min:100|max:250',
+            'weight' => 'nullable|numeric|min:30|max:300',
+        ], [
+            'name.required' => 'Please provide your name.',
+            'name.min' => 'Your name must be at least 3 characters long.',
+            'email.required' => 'An email address is required.',
+            'email.email' => 'Please provide a valid email address.',
+            'email.unique' => 'This email address is already registered.',
+            'password.required' => 'Please enter a password.',
+            'password.min' => 'Password must be at least 8 characters long.',
+            'password.max' => 'Password cannot exceed 20 characters.',
+            'height.numeric' => 'Height must be a valid number.',
+            'height.min' => 'Height should be at least 100 cm.',
+            'height.max' => 'Height should not exceed 250 cm.',
+            'weight.numeric' => 'Weight must be a valid number.',
+            'weight.min' => 'Weight should be at least 30 kg.',
+            'weight.max' => 'Weight should not exceed 300 kg.'
         ]);
+
+
 
         $user = User::create([
             'name' => $validatedData['name'],
@@ -42,9 +56,16 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validatedData = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => 'required|email|max:255',
+            'password' => 'required|string|min:8|max:20',
+        ], [
+            'email.required' => 'Email address is required to login.',
+            'email.email' => 'Please enter a valid email address.',
+            'password.required' => 'Password is required to login.',
+            'password.min' => 'Password must be at least 8 characters long.',
+            'password.max' => 'Password cannot exceed 20 characters.'
         ]);
+
 
         $user = User::where('email', $validatedData['email'])->first();
 

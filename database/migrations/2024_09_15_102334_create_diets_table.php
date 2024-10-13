@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('diets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // foreign key to users
-            $table->text('breakfast'); // breakfast meal details
-            $table->text('lunch');     // lunch meal details
-            $table->text('dinner');    // dinner meal details
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('goal'); // Add goal column
+            $table->string('variation'); // Add variation column
+            $table->text('breakfast');
+            $table->text('lunch');
+            $table->text('dinner');
             $table->timestamps();
         });
     }
